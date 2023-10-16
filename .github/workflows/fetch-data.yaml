@@ -3,7 +3,7 @@ name: Fetch website data
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/10 * * * *'
 
 jobs:
   fetch-data:
