@@ -50,7 +50,7 @@ for page in "${pagesToCrawl[@]}"; do
       pushResponse=$(curl --location "https://api.pushover.net/1/messages.json" \
         --form-string "token=${PUSHOVER_APP_TOKEN}" \
         --form-string "user=${PUSHOVER_USER_KEY}" \
-        --form-string "message=Changes detected for ${name}" \
+        --form-string "message=Changes detected for ${name} - ${url}" \
         --fail --silent --show-error)
     fi
   else
