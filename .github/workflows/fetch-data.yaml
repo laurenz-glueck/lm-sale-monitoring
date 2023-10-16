@@ -8,6 +8,9 @@ on:
 jobs:
   fetch-data:
     runs-on: ubuntu-latest
+    env:
+      PUSHOVER_USER_KEY: ${{ secrets.PUSHOVER_USER_KEY }}
+      PUSHOVER_APP_TOKEN: ${{ secrets.PUSHOVER_APP_TOKEN }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
