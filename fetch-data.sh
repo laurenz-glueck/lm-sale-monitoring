@@ -35,7 +35,7 @@ for page in "${pagesToCrawl[@]}"; do
   hash=$(echo $response | md5sum | awk '{ print $1 }')
 
   # Write the hash to a file with the name as the filename
-  filePath="page-history/page-history--$name.txt"
+  filePath="./page-history/page-history--$name.txt"
 
   # Check if the file exists
   if [ -f "$filePath" ]; then
