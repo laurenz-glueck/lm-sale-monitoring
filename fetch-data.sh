@@ -6,6 +6,7 @@
 # Array of urls to check
 pagesToCrawl=(
   '{ "name": "lm-sale-1", "url": "https://leomathild.com/collections/sample-sale" }'
+  '{ "name": "lm-sale-2", "url": "https://leomathild.com/collections/sample-sale?page=2" }'
   '{ "name": "lm-studio-sale-1", "url": "https://lmstudio-jewellery.com/collections/sample-sale" }'
 )
 
