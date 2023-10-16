@@ -17,6 +17,12 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_ACCESS_TOKEN }}
 
+      - name: Install pup
+        run: |
+          wget https://github.com/ericchiang/pup/releases/download/v0.4.0/pup_v0.4.0_linux_amd64.tar.gz
+          tar -xvf pup_v0.4.0_linux_amd64.tar.gz
+          sudo mv pup /usr/local/bin/
+
       - name: Fetch latest data
         run: |-
           bash ./fetch-data.sh

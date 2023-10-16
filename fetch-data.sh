@@ -5,15 +5,16 @@
 
 # Array of urls to check
 pagesToCrawl=(
-  '{ "name": "lm-sale-1", "url": "https://leomathild.com/collections/sample-sale" }'
-  '{ "name": "lm-sale-2", "url": "https://leomathild.com/collections/sample-sale?page=2" }'
-  '{ "name": "lm-studio-sale-1", "url": "https://lmstudio-jewellery.com/collections/sample-sale" }'
+  '{ "name": "lm-sale-1", "url": "https://leomathild.com/collections/sample-sale", "selector": "#main div.ProductListWrapper" }'
+  '{ "name": "lm-sale-2", "url": "https://leomathild.com/collections/sample-sale?page=2", "selector": "#main div.ProductListWrapper" }'
+  '{ "name": "lm-studio-sale-1", "url": "https://lmstudio-jewellery.com/collections/sample-sale", "selector": "#main div.ProductListWrapper" }'
 )
 
 # Loop over the array of pages to crawl and fetch the data for each url
 for page in "${pagesToCrawl[@]}"; do
   name=$(echo $page | jq -r '.name')
   url=$(echo $page | jq -r '.url')
+  selector=$(echo $page | jq -r '.selector')
 
   # Fetch the url and store the response in a variable
   response=$(curl --location "$url" \
@@ -32,8 +33,11 @@ for page in "${pagesToCrawl[@]}"; do
     echo "Successfully fetched data for $name"
   fi
 
-  # Generate hash from response
-  hash=$(echo $response | md5sum | awk '{ print $1 }')
+  # Extract the part of the HTML that matches the CSS selector
+  selectedHtml=$(echo "$response" | pup "$selector")
+
+  # Generate hash from the extracted HTML
+  hash=$(echo "$selectedHtml" | md5sum | awk '{ print $1 }')
 
   # Write the hash to a file with the name as the filename
   filePath="./page-history/page-history--$name.txt"
